@@ -2,6 +2,8 @@
 
 This demo project showcases how to integrate and implement Apple's StoreKit 2 framework with [iaptic](https://www.iaptic.com/) (formerly Fovea.Billing) for secure server-side validation of in-app purchases in iOS applications.
 
+This uses the [iaptic-storekit2](https://github.com/iaptic/iaptic-storekit2) package.
+
 ## Overview
 
 StoreKit 2 is Apple's latest framework for handling in-app purchases, providing a modern Swift API with async/await support. This demo app demonstrates how to:
@@ -128,8 +130,6 @@ The application includes extensive debug logging to help you understand the Stor
 
 - [iaptic Documentation](https://www.iaptic.com/documentation)
 - [Apple's StoreKit Documentation](https://developer.apple.com/documentation/storekit)
-- [WWDC21: Meet StoreKit 2](https://developer.apple.com/videos/play/wwdc2021/10114/)
-- [Apple's In-App Purchase Best Practices](https://developer.apple.com/app-store/in-app-purchase/)
 
 ## License
 
