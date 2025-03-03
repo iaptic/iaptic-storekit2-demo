@@ -17,9 +17,8 @@ class SubscriptionsManager: NSObject, ObservableObject {
     init(entitlementManager: EntitlementManager) {
         print("🚀 Initializing SubscriptionsManager")
         self.iaptic = Iaptic(
-            baseURL: "http://localhost:8000",
-            appName: "subsdemo",
-            publicKey: "c969a3c9-fa2d-4306-988e-c9371bfce2c0"
+            appName: "demo",
+            publicKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         )
         self.entitlementManager = entitlementManager
         super.init()
