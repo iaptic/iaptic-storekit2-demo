@@ -59,9 +59,9 @@ class SubscriptionsManager: NSObject, ObservableObject {
         SKPaymentQueue.default().remove(self)
     }
     
-    func verifyWithIaptic(jwsRepresentation: String, productID: String) async {
+    func verifyWithIaptic(jwsRepresentation: String, productID: String = "") async {
         let response = await iaptic.validateWithJWS(
-            productId: productID,
+            productId: productID != "" ? productID : Bundle.main.bundleIdentifier ?? "",
             jwsRepresentation: jwsRepresentation,
             applicationUsername: userID
         )
@@ -90,6 +90,7 @@ class SubscriptionsManager: NSObject, ObservableObject {
                     print("🔑 Transaction ID: \(transaction.id)")
                     print("📅 Purchase date: \(transaction.purchaseDate)")
                     await self.verifyWithIaptic(jwsRepresentation: verificationResult.jwsRepresentation, productID: transaction.productID)
+                    await transaction.finish()
                     
                 case .unverified(_, let verificationError):
                     print("❌ Transaction local verification failed with error: \(verificationError.localizedDescription)")
@@ -98,7 +99,7 @@ class SubscriptionsManager: NSObject, ObservableObject {
                         print("⚠️ Unverified transaction product ID: \(transaction.productID)")
                         print("⚠️ Unverified transaction ID: \(transaction.id)")
                     }
-                    await self.verifyWithIaptic(jwsRepresentation: verificationResult.jwsRepresentation, productID: verificationResult.jwsRepresentation)
+                    await self.verifyWithIaptic(jwsRepresentation: verificationResult.jwsRepresentation, productID: "")
                 }
                 
                 self.updateEntitlements()
@@ -150,9 +151,13 @@ extension SubscriptionsManager {
     
     func buyProduct(_ product: Product) async {
         print("🛍️ Attempting to purchase product: \(product.id)")
+        
+        // First, check if we need to clear any existing subscriptions
+        await checkAndFinishExpiredTransactions(for: product.id)
+        
         do {
             print("💰 Calling product.purchase() for \(product.id)")
-            let result = try await product.purchase()
+            let result = try await product.purchase(options: [.simulatesAskToBuyInSandbox(true)])
             print("📦 Purchase result received for \(product.id)")
             
             switch result {
@@ -183,6 +188,27 @@ extension SubscriptionsManager {
             }
         } catch {
             print("❌ Failed to purchase the product: \(error.localizedDescription)")
+        }
+    }
+    
+    // Check for expired transactions and finish them to allow new purchases
+    private func checkAndFinishExpiredTransactions(for productID: String) async {
+        print("🧹 Checking for expired transactions to clean up")
+        
+        do {
+            // Get current entitlements
+            for await result in Transaction.currentEntitlements {
+                if case .verified(let transaction) = result, transaction.productID == productID {
+                    // If transaction is expired, finish it
+                    if transaction.expirationDate != nil && transaction.expirationDate! < Date() {
+                        print("🗑️ Finishing expired transaction for \(productID)")
+                        await transaction.finish()
+                    }
+                }
+            }
+            
+        } catch {
+            print("⚠️ Error while cleaning up transactions: \(error.localizedDescription)")
         }
     }
 }

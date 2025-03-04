@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,8 +13,9 @@
 		222052242B4FE13200D23FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 222052232B4FE13200D23FDE /* Assets.xcassets */; };
 		222052282B4FE13200D23FDE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 222052272B4FE13200D23FDE /* Preview Assets.xcassets */; };
 		2220522F2B4FE34C00D23FDE /* SubscriptionsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2220522E2B4FE34C00D23FDE /* SubscriptionsManager.swift */; };
-		A64A09062D7498070074773D /* Iaptic in Frameworks */ = {isa = PBXBuildFile; productRef = A64A09052D7498070074773D /* Iaptic */; };
-		A64A09082D749C7E0074773D /* Iaptic in Frameworks */ = {isa = PBXBuildFile; productRef = A64A09072D749C7E0074773D /* Iaptic */; };
+		A64A09062D7498070074773D /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		A64A09082D749C7E0074773D /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		A6F8AEA32D7716B300929FA7 /* Iaptic in Frameworks */ = {isa = PBXBuildFile; productRef = A6F8AEA22D7716B300929FA7 /* Iaptic */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,8 +34,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A64A09082D749C7E0074773D /* Iaptic in Frameworks */,
-				A64A09062D7498070074773D /* Iaptic in Frameworks */,
+				A64A09082D749C7E0074773D /* (null) in Frameworks */,
+				A64A09062D7498070074773D /* (null) in Frameworks */,
+				A6F8AEA32D7716B300929FA7 /* Iaptic in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -124,7 +126,7 @@
 			);
 			mainGroup = 222052132B4FE13100D23FDE;
 			packageReferences = (
-				A64A09042D7498070074773D /* XCLocalSwiftPackageReference "../../../billing/iaptic-storekit2" */,
+				A6F8AEA12D7716B300929FA7 /* XCRemoteSwiftPackageReference "iaptic-storekit2" */,
 			);
 			productRefGroup = 2220521D2B4FE13100D23FDE /* Products */;
 			projectDirPath = "";
@@ -383,20 +385,21 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		A64A09042D7498070074773D /* XCLocalSwiftPackageReference "../../../billing/iaptic-storekit2" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = "../../../billing/iaptic-storekit2";
+/* Begin XCRemoteSwiftPackageReference section */
+		A6F8AEA12D7716B300929FA7 /* XCRemoteSwiftPackageReference "iaptic-storekit2" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/iaptic/iaptic-storekit2.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
 		};
-/* End XCLocalSwiftPackageReference section */
+/* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A64A09052D7498070074773D /* Iaptic */ = {
+		A6F8AEA22D7716B300929FA7 /* Iaptic */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Iaptic;
-		};
-		A64A09072D749C7E0074773D /* Iaptic */ = {
-			isa = XCSwiftPackageProductDependency;
+			package = A6F8AEA12D7716B300929FA7 /* XCRemoteSwiftPackageReference "iaptic-storekit2" */;
 			productName = Iaptic;
 		};
 /* End XCSwiftPackageProductDependency section */
